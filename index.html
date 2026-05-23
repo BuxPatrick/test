@@ -107,6 +107,66 @@
       box-shadow: 0 24px 60px rgba(31, 41, 51, 0.16);
     }
 
+    .tabs {
+      max-width: 1080px;
+      margin: 0 auto 56px;
+      padding: 0 8%;
+    }
+
+    .tab-list {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      background: #ffffff;
+      border: 1px solid #e3e8df;
+      border-radius: 999px;
+      padding: 8px;
+    }
+
+    .tab-list button {
+      flex: 1 1 auto;
+      min-width: 120px;
+      border: none;
+      background: transparent;
+      padding: 14px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #52616b;
+      transition: all 0.2s ease;
+    }
+
+    .tab-list button[aria-selected="true"] {
+      background: #2a9d8f;
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(42, 157, 143, 0.18);
+    }
+
+    .tab-panel {
+      display: none;
+      padding: 28px 24px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid #e3e8df;
+      color: #384049;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .tab-panel h2 {
+      margin-bottom: 14px;
+      font-size: 1.35rem;
+      color: #17324d;
+    }
+
+    .tab-panel p {
+      color: #52616b;
+      line-height: 1.75;
+    }
+
     .features {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -187,6 +247,35 @@
       <div class="hero-image" role="img" aria-label="Modern workspace with desks and natural light"></div>
     </section>
 
+    <section class="tabs" aria-label="Homepage tabs">
+      <div class="tab-list" role="tablist">
+        <button role="tab" aria-selected="true" aria-controls="tab-home" id="tab-home-btn">Home</button>
+        <button role="tab" aria-selected="false" aria-controls="tab-services" id="tab-services-btn">Services</button>
+        <button role="tab" aria-selected="false" aria-controls="tab-work" id="tab-work-btn">Work</button>
+        <button role="tab" aria-selected="false" aria-controls="tab-contact" id="tab-contact-btn">Contact</button>
+      </div>
+
+      <article id="tab-home" class="tab-panel active" role="tabpanel" aria-labelledby="tab-home-btn">
+        <h2>Fast, friendly homepage content</h2>
+        <p>Start here with the story, services, and results that matter most to visitors. The homepage tab keeps your messaging clear and easy to scan.</p>
+      </article>
+
+      <article id="tab-services" class="tab-panel" role="tabpanel" aria-labelledby="tab-services-btn">
+        <h2>Design + build services</h2>
+        <p>We help small businesses launch polished websites, optimize their message, and create digital experiences that convert visitors into customers.</p>
+      </article>
+
+      <article id="tab-work" class="tab-panel" role="tabpanel" aria-labelledby="tab-work-btn">
+        <h2>Featured projects</h2>
+        <p>Showcase your best work and case studies in a crisp, modern layout. Each project section can highlight strategy, results, and creative direction.</p>
+      </article>
+
+      <article id="tab-contact" class="tab-panel" role="tabpanel" aria-labelledby="tab-contact-btn">
+        <h2>Get in touch</h2>
+        <p>Invite visitors to connect, request a proposal, or book a call. A simple contact panel makes it easy to move prospects to the next step.</p>
+      </article>
+    </section>
+
     <section class="features" aria-label="Highlights">
       <article class="feature">
         <h2>Clear Strategy</h2>
@@ -206,5 +295,24 @@
   <footer>
     <p>&copy; 2026 BrightPath Studio. All rights reserved.</p>
   </footer>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab-list button');
+    const panels = document.querySelectorAll('.tab-panel');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((button) => {
+          button.setAttribute('aria-selected', 'false');
+        });
+        panels.forEach((panel) => {
+          panel.classList.remove('active');
+        });
+
+        tab.setAttribute('aria-selected', 'true');
+        document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
