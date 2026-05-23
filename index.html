@@ -399,5 +399,31 @@
   <footer>
     <p>&copy; 2026 BrightPath Studio. All rights reserved.</p>
   </footer>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab-list button');
+    const panels = document.querySelectorAll('.tab-panel');
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+
+    function activateTab(tab) {
+      tabs.forEach((button) => button.setAttribute('aria-selected', 'false'));
+      panels.forEach((panel) => panel.classList.remove('active'));
+      tab.setAttribute('aria-selected', 'true');
+      document.getElementById(tab.getAttribute('aria-controls')).classList.add('active');
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => activateTab(tab));
+    });
+
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        const dark = body.classList.toggle('dark-theme');
+        themeToggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+        themeToggle.setAttribute('aria-pressed', String(dark));
+      });
+    }
+  </script>
 </body>
 </html>
